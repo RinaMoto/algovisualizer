@@ -29,10 +29,16 @@
 }
 
 .bars {
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
+.frame {
+  width: 30rem;
+  height: 30rem;
+  background-color: gray;
+}
 
 @keyframes App-logo-spin {
   from {

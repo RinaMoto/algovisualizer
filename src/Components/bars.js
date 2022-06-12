@@ -1,36 +1,31 @@
+import {forwardRef} from 'react';
 
-
-const bars = ({index, length, color}) => {
-
+const Bars = forwardRef((props, ref) => {
+    const height = `max-h-[${200 - props.length}px]`
+    
     const colors = [
         ['rbga(61, 90,241, 0.5)', 'rbga(61, 90,241, 0.5)'],
         ['rbga(61, 90,241, 0.5)', 'rbga(61, 90,241, 0.5)'],
         ['rbga(61, 90,241, 0.5)', 'rbga(61, 90,241, 0.5)'],
     ];
-    const buttom = {
-        transform: `translateY(${200 - length}px) rotateX(-90deg)`,
-        backgroundColor: `${colors[color[0]]}`,
-        boxShadow: `5px 5px 50px 5px ${colors[color][1]}`,
-        transition: '0.3s'
-    }
 
-    const right = {
-        height: `${length}px`,
-        transform: `translateY(${200 - length}px)`,
-        backgroundColor: `${colors[color][0]}`,
-        boxShadow: `5px 5px 50px 5px ${colors[color][1]}`,
-        transition: '0.3s'
-    }
 
 
     const barStyle = {
-        height: length
+        height: `${2.5 * props.length}px`,
+        backgroundColor: '#737CA1'
     }
+    debugger;
+
     return (
         <>
-            <div className="bars" style={barStyle}></div>
+            <div 
+            ref={ref[props.index]}
+            className={`flex-1 max-w-[4px]`}  
+            style={barStyle}>
+            </div>
         </>
-    )
-}
+    )}
+);
 
-export default bars;
+export default Bars;

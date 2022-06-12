@@ -21,7 +21,11 @@ const Navbar = ({list, setList}) => {
         <nav>
             {sortTypes.map((type, i) => {
                 return (
-                    <button value={type} key={i} onClick={() => handleClick(type)}>{type}</button>
+                    <button 
+                    className="bg-indigo-300 hover:bg-indigo-400 text-gray-800 font-bold py-2 px-4 rounded-lg my-4 mx-1"
+                    value={type} 
+                    key={i} 
+                    onClick={() => handleClick(type)}>{type}</button>
                 )
             })}
         </nav>
