@@ -1,6 +1,6 @@
 
 
-function merge(
+function mergeHelper(
     mainArray,
     startIndex,
     endIndex,
@@ -12,8 +12,8 @@ function merge(
     }
 
     const middleIndex = Math.floor((startIndex + endIndex) / 2);
-    merge(auxiliaryArray, startIndex, middleIndex, mainArray, animations);
-    merge(auxiliaryArray, middleIndex + 1, endIndex, mainArray, animations);
+    mergeHelper(auxiliaryArray, startIndex, middleIndex, mainArray, animations);
+    mergeHelper(auxiliaryArray, middleIndex + 1, endIndex, mainArray, animations);
     doMerge(mainArray, startIndex, middleIndex, endIndex, auxiliaryArray, animations);
 }
 
@@ -53,15 +53,17 @@ function doMerge (
         }
 
 }
+
 function MergeSort(unsortedArray) {
     const animations = [];
+
     // Base case: if array is less or equal to one, no sorting
     if (unsortedArray.length <= 1) {
         return unsortedArray;
     }
 
     const auxiliaryArray = unsortedArray.slice();
-    merge(unsortedArray, 0, unsortedArray.length - 1, auxiliaryArray, animations)
+    mergeHelper(unsortedArray, 0, unsortedArray.length - 1, auxiliaryArray, animations)
     return animations;
 }
 

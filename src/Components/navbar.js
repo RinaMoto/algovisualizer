@@ -7,13 +7,11 @@ const Navbar = ({list, setList}) => {
         if (list.includes(option)) {
             const newList = list.filter((item) => item !== option);
             setList(newList);
-            console.log(newList);
         }
         else {
             setList((prevItems) => [...prevItems, option])
         }
         
-        console.log(list);
     }
 
     return (
