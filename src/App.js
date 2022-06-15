@@ -3,8 +3,11 @@ import './App.css';
 import Navbar from './Components/navbar.js';
 import {useState, useEffect, useRef, createRef, useMemo} from 'react';
 import Bars from './Components/bars.js';
-import MergeSort from './Components/mergeSort.js';
-import HeapSort from './Components/heapSort.js';
+import MergeSort from './Components/Algorithms/mergeSort.js';
+import HeapSort from './Components/Algorithms/heapSort.js';
+import QuickSort from './Components/Algorithms/quickSort.js';
+import BubbleSort from './Components/Algorithms/bubbleSort.js';
+import RadixSort from './Components/Algorithms/radixSort.js';
 
 function App() {
   const [list, setList] = useState([]);
@@ -62,22 +65,91 @@ function App() {
 
   function doHeap() {
     const animations = HeapSort(array);
-    console.log(animations[0], animations[1])
+    const maxheapEnd = animations[1]
     for (let i = 0; i < animations[0].length; i++) {
-      const [barOneIdx, newHeight] = animations[0][i];
-      const barOneStyle = document.getElementById(barOneIdx).style
-      setTimeout(() => {
-        barOneStyle.height = `${2.5 * newHeight}px`;
-      }, i * 1)
+      setProcessing(true);
+      const isColorChange = i % 3 !== 2;
+      if (isColorChange) {
+        const [barOneIdx, barTwoIdx] = animations[0][i];
+        const barOneStyle = document.getElementById(barOneIdx).style
+        const barTwoStyle = document.getElementById(barTwoIdx).style
+        let color = i % 3 === 0 ? 'red' : '#737CA1'
+        if (i < maxheapEnd) {
+          color = i % 3 === 0 ? 'red' : '#737CA1'
+        }
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+        }, i * 1)
+      }
+      else {
+        setTimeout(() => {
+          const [barOneIdx, newHeightOne, barTwoIdx, newHeightTwo] = animations[0][i]
+          const barOneStyle = document.getElementById(barOneIdx).style
+          const barTwoStyle = document.getElementById(barTwoIdx).style
+          barOneStyle.height = `${2.5 * newHeightOne}px`;
+          barTwoStyle.height = `${2.5 * newHeightTwo}px`;
+          if (i === animations[0].length - 1) {
+            setProcessing(false);
+          }
+        }, i * 1);
+      }
     }
+  }
 
-    for (let i = 0; i < animations[1].length; i++) {
-      const [barOneIdx, newHeight] = animations[1][i];
-      const barOneStyle = document.getElementsById(barOneIdx).style
-      setTimeout(() => {
-        barOneStyle.height = `${2.5 * newHeight}px`
-        barOneStyle.backgroundColor = '#76BA1B'
-      }, i * 1)
+  function doQuickBubbleSort() {
+    const animations = QuickSort(array);
+    for (let i = 0; i < animations.length; i++) {
+      setProcessing(true);
+      const isColorChange = i % 3 !== 2;
+      if (isColorChange) {
+        const [barOneIdx, barTwoIdx] = animations[i];
+        const barOneStyle = document.getElementById(barOneIdx).style
+        const barTwoStyle = document.getElementById(barTwoIdx).style
+        let color = i % 3 === 0 ? 'red' : '#76BA1B'
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+        }, i * 10)
+      }
+      else {
+        const [barOneIdx, newHeightOne, barTwoIdx, newHeightTwo] = animations[i]
+        const barOneStyle = document.getElementById(barOneIdx).style
+        const barTwoStyle = document.getElementById(barTwoIdx).style
+        setTimeout(() => {
+          barOneStyle.height = `${2.5 * newHeightOne}px`;
+          barTwoStyle.height = `${2.5 * newHeightTwo}px`;
+          if (i === animations.length - 1) {
+            setProcessing(false);
+          }
+        }, i * 10);
+      }
+    }
+  }
+
+  function doRadix() {
+    const animations = RadixSort(array);
+    for (let i = 0; i < animations.length; i++) {
+      setProcessing(true);
+      const isColorChange = i % 3 !== 2;
+      if (isColorChange) {
+        const [barOneIdx] = animations[i];
+        const barOneStyle = document.getElementById(barOneIdx).style
+        let color = i % 3 === 0 ? 'red' : '#76BA1B'
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+        }, i * 10)
+      }
+      else {
+        const [barOneIdx, newHeightOne] = animations[i]
+        const barOneStyle = document.getElementById(barOneIdx).style
+        setTimeout(() => {
+          barOneStyle.height = `${2.5 * newHeightOne}px`;
+          if (i === animations.length - 1) {
+            setProcessing(false);
+          }
+        }, i * 10);
+      }
     }
   }
 
@@ -93,7 +165,7 @@ function App() {
             <button 
             id="reset-btn"
             className="bg-green-700 hover:bg-green-600 text-gray-800 font-bold py-2 px-4 rounded-lg my-2 mx-4"
-            onClick={doHeap}
+            onClick={doRadix}
             >start sort</button>
             <button 
             className="bg-red-700 hover:bg-red-600 text-gray-800 font-bold py-2 px-4 rounded-lg my-2 mx-4"
@@ -107,7 +179,6 @@ function App() {
           <div className={`flex bg-slate-700 h-[48rem] place-self-center m-2 w-[50rem] px-1 rounded space-x-1`} id="array-bars">
     
           {array ? array.map((item, index) => {
-        
             const barStyle = {
               height: `${2.5 * item}px`,
               backgroundColor: '#737CA1'

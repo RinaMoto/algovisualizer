@@ -1,26 +1,28 @@
 
 
 
-export default function heapSort(arr) {
+export default function heapSort(array) {
     let n = arr.length
     const animations = [];
-    const swapAnimations = [];
+    let swapPoint = 0;
+    const arr = array.slice()
     // build max heap
     for (let i = Math.floor((n / 2) - 1); i > -1; i--) {
         heapify(arr, n, i, animations)
     }
 
+    swapPoint = animations.length
     for (let i = (n - 1); i > 0; i--) {
         // swap
-        swapAnimations.push([i, arr[0]]);
-        swapAnimations.push([0, arr[i]]);
         [arr[i], arr[0]] = [arr[0], arr[i]]
-
+        animations.push([i, 0])
+        animations.push([i, 0])
+        animations.push([i, arr[i], 0, arr[0]]);
         // heapify
-        heapify(arr, i, 0, swapAnimations)
+        heapify(arr, i, 0, animations)
     }
-    console.log(animations, swapAnimations)
-    return [animations, swapAnimations];
+    console.log(animations, swapPoint)
+    return [animations, swapPoint];
 }
 
 function heapify(array, n, i, animations) {
@@ -38,8 +40,9 @@ function heapify(array, n, i, animations) {
 
     if (largest !== i) {
         [array[largest], array[i]] = [array[i], array[largest]]
-        animations.push([largest, array[largest]])
-        animations.push([i, array[i]])
+        animations.push([largest, i])
+        animations.push([largest, i])
+        animations.push([i, array[i], largest, array[largest]])
         heapify(array, n, largest, animations);
     }
 }

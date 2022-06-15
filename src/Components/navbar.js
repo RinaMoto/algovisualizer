@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const sortTypes = ["Merge sort", "Heapsort", "Quicksort", "Shellsort", "Bubble sort", "Radix sort"]
+const sortTypes = ["Merge sort", "Heapsort", "Quicksort", "Bubble sort", "Radix sort", "Timsort"]
 const Navbar = ({list, setList}) => {
 
     const handleClick = (option) => {
