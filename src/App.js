@@ -168,7 +168,6 @@ function App() {
 
   function doBubbleSort(offset) {
     const animations = BubbleSort(array);
-    debugger;
     for (let i = 0; i < animations.length; i++) {
       const isColorChange = i % 3 !== 2;
       if (isColorChange) {
@@ -255,7 +254,7 @@ function App() {
   return (
       <div className="h-full bg-slate-600">
         <header className="grid text-center place-content-center pt-7">
-          <h1 className="text-slate-300 font-medium">Welcome to visualizeAlgo</h1>
+          <h1 className="font-bold text-slate-300 sm:font-medium">Welcome to visualizeAlgo</h1>
           <Navbar list={list} setList={setList} sortTypes={sortTypes} reset={reset}/>
           <div className="flex place-content-center">
             <button 
@@ -301,8 +300,7 @@ function App() {
                 enterDelay={200}>
                 <h3 className="text-slate-300 text-center font-bold my-3">{item.title}</h3>
                 </Tooltip>
-                <div className={`flex bg-slate-700 h-[38rem] place-self-center justify-center m-2 w-[40rem] px-1 rounded space-x-1 shadow-lg`} id="array-bars">
-          
+                <div className={`flex bg-slate-700 w-[24rem] h-fit sm:h-[38rem] place-self-center justify-center sm:m-2 sm:w-[40rem] sm:px-1 rounded sm:space-x-0.5 shadow-lg`} id="array-bars">
                     {array ? array.map((height, index) => {
                       return (
                       <Bars index={index + (array.length * i)} item={height}/>
