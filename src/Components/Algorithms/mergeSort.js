@@ -54,17 +54,15 @@ function doMerge (
 
 }
 
-function MergeSort(unsortedArray) {
+export default function MergeSort(array) {
     const animations = [];
 
     // Base case: if array is less or equal to one, no sorting
-    if (unsortedArray.length <= 1) {
-        return unsortedArray;
+    if (array.length <= 1) {
+        return array;
     }
-
+    const unsortedArray = array.slice();
     const auxiliaryArray = unsortedArray.slice();
     mergeHelper(unsortedArray, 0, unsortedArray.length - 1, auxiliaryArray, animations)
     return animations;
 }
-
-export default MergeSort;

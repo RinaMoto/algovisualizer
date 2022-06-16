@@ -8,13 +8,13 @@ function quickSort(array, low, high, animations) {
         // after pi number
         quickSort(array, pi + 1, high, animations)
     }
-    return animations
+    return animations;
 }
 
 
 function partition(array, low, high, animations) {
-    const pivot = array[high]
-    let i = (low - 1)
+    const pivot = array[high];
+    let i = (low - 1);
     for (var j = low; j <= high - 1; j++) {
         if (array[j] < pivot) {
             i++;
@@ -29,7 +29,7 @@ function partition(array, low, high, animations) {
     animations.push([i+1, j])
     animations.push([i+1, j])
     animations.push([i+1, array[i+1], j, array[j]])
-    return (i + 1)
+    return (i + 1);
 }
 
 
@@ -37,7 +37,7 @@ export default function quickSortStart(array) {
     const low = 0
     const high = array.length - 1
     const animations = []
-    const arr = array.slice()
+    let arr = array.slice()
     quickSort(arr, low, high, animations)
     return animations;
 }
